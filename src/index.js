@@ -4,11 +4,9 @@ import addImage from './add-image.js';
 
 const helloWorldButton = new HelloWorldButton();
 const heading = new Heading();
-const heading2 = new Heading();
 
 heading.render();
 
-heading2.render();
 helloWorldButton.render();
 
 if ( process.env.NODE_ENV === 'production') {
