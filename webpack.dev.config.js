@@ -1,6 +1,5 @@
 const path = require('path');
 const TerserPlugin = require('terser-webpack-plugin'); // alternate to uglifyjs
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
@@ -12,6 +11,11 @@ module.exports = {
     publicPath: ''
   },
   mode: 'development', // development, production
+  devServer: {
+    contentBase: path.resolve(__dirname, './dist'),
+    index: 'index.html',
+    port: 9000
+  },
   module: {
     rules: [
       {
@@ -23,15 +27,13 @@ module.exports = {
       {
         test: /\.css$/,
         use: [
-          // 'style-loader', 'css-loader'
-          MiniCssExtractPlugin.loader, 'css-loader'
+          'style-loader', 'css-loader'
         ]
       },
       {
         test: /\.scss$/,
         use: [
-          // 'style-loader', 'css-loader', 'sass-loader'
-          MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'
+          'style-loader', 'css-loader', 'sass-loader'
         ]
       },
       {
@@ -55,9 +57,6 @@ module.exports = {
   },
   plugins: [
     new TerserPlugin(),
-    new MiniCssExtractPlugin({
-      filename: 'styles.css'
-    }),
     new CleanWebpackPlugin({
       cleanOnceBeforeBuildPatterns: [
         '**/*',
