@@ -4,9 +4,17 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: './src/index.js',
+  /*
+    // single entry
+    entry: './src/index.js',
+  */
+  entry: {
+    'hello-world': './src/index.js',
+    'newImage': './src/sampleImage.js'
+  },
   output: {
-    filename: 'bundle.[contenthash].js',
+    // filename: 'bundle.[contenthash].js',
+    filename: '[name].[contenthash].js',
     path: path.resolve(__dirname, './dist'),
     publicPath: ''
   },
@@ -53,8 +61,11 @@ module.exports = {
     ]
   },
   plugins: [
+    // new MiniCssExtractPlugin({
+    //   filename: 'styles.[contenthash].css'
+    // }),
     new MiniCssExtractPlugin({
-      filename: 'styles.[contenthash].css'
+      filename: '[name].[contenthash].css'
     }),
     new CleanWebpackPlugin({
       cleanOnceBeforeBuildPatterns: [
@@ -63,7 +74,17 @@ module.exports = {
       ]
     }),
     new HtmlWebpackPlugin({
+      filename: 'index.html', // it's not required when we have only one html file
+      chunks: ['hello-world'],
       title: 'Hello world',
+      template: 'src/index.hbs',
+      description: 'Some description'
+      // filename: 'subfolder/custom_filename.html',
+    }),
+    new HtmlWebpackPlugin({
+      filename: 'image.html',
+      chunks: ['newImage'],
+      title: 'Sample image',
       template: 'src/index.hbs',
       description: 'Some description'
       // filename: 'subfolder/custom_filename.html',
