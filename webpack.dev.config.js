@@ -4,9 +4,14 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: './src/index.js',
+  // entry: './src/index.js',
+  entry: {
+    'hello-world': './src/index.js',
+    'newImage': './src/sampleImage.js'
+  },
   output: {
-    filename: 'bundle.js',
+    // filename: 'bundle.js',
+    filename: '[name].bundle.js',
     path: path.resolve(__dirname, './dist'),
     publicPath: ''
   },
@@ -64,9 +69,19 @@ module.exports = {
       ]
     }),
     new HtmlWebpackPlugin({
+      filename: 'index.html',
+      chunks: ['hello-world'],
       title: 'Hello world',
       template: 'src/index.hbs',
       description: 'Some description'
+      // filename: 'subfolder/custom_filename.html',
+    }),
+    new HtmlWebpackPlugin({
+      filename: 'image.html',
+      chunks: ['newImage'],
+      title: 'Sample Image',
+      template: 'src/index.hbs',
+      description: 'Sample image'
       // filename: 'subfolder/custom_filename.html',
     })
   ]
