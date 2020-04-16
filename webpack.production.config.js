@@ -19,6 +19,11 @@ module.exports = {
     publicPath: ''
   },
   mode: 'production', // development, production
+  optimization: {
+    splitChunks: {
+      chunks: 'all'
+    }
+  },
   module: {
     rules: [
       {
@@ -75,7 +80,7 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
       filename: 'index.html', // it's not required when we have only one html file
-      chunks: ['hello-world'],
+      chunks: ['hello-world', 'vendors~hello-world~newImage'],
       title: 'Hello world',
       template: 'src/index.hbs',
       description: 'Some description'
@@ -83,7 +88,7 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
       filename: 'image.html',
-      chunks: ['newImage'],
+      chunks: ['newImage', 'vendors~hello-world~newImage'],
       title: 'Sample image',
       template: 'src/index.hbs',
       description: 'Some description'
