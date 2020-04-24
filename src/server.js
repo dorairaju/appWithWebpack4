@@ -11,12 +11,12 @@ app.get('/hello-world/', function (req, res) {
 });
 
 app.get('/image/', function (req, res) {
-  const pathToHtmlFile = path.resolve(__dirname, '../dist/sampleImage.html');
+  const pathToHtmlFile = path.resolve(__dirname, '../dist/image.html');
   const contentFromHtmlFile = fs.readFileSync(pathToHtmlFile, 'utf-8');
   res.send(contentFromHtmlFile);
 });
 
-app.use('/static', express.static(path.resolve(__dirname, '../dist')));
+app.use('/', express.static(path.resolve(__dirname, '../dist')));
 app.listen(3000, function() {
   console.log('Application is running on port 3000');
 });
